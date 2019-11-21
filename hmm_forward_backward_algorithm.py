@@ -39,7 +39,12 @@ def backward(A,B,pi,observation_sequence):
 
 def forward_backward(A,B,alpha,beta,t):
     #equation (10.22)
-    prob =np.dot(alpha[:,t-1],np.dot(A,B[:,observation_sequence[t]]*beta[:,t]))
+    #t = 1,2,...,T-1
+    #prob =np.dot(alpha[:,t-1],np.dot(A,B[:,observation_sequence[t]]*beta[:,t]))
+    
+    #simplified
+    #t=1,2,...T
+    prob = np.dot(alpha[:,t-1],beta[:,t-1])
     return prob
 #state transitin matrix
 A = np.array([[.5,.2,.3],[.3,.5,.2],[.2,.3,.5]])
