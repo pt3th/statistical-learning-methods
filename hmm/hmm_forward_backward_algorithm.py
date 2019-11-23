@@ -18,7 +18,7 @@ Observation = {red,white} or {0,1}
 def forward(A,B,pi,observation_sequence):
     state_num = A.shape[0]
     T = len(observation_sequence)
-    alpha = np.zeros((T,state_num))
+    alpha = np.zeros((state_num,T))
     alpha[:,0] = pi*(B[:,observation_sequence[0]])
     for i in range(1,T):
         alpha[:,i] = np.dot(A.T,alpha[:,i-1]) * B[:,observation_sequence[i]]
@@ -29,7 +29,7 @@ def forward(A,B,pi,observation_sequence):
 def backward(A,B,pi,observation_sequence):
     state_num = A.shape[0]
     T = len(observation_sequence)
-    beta = np.zeros((T,state_num))
+    beta = np.zeros((state_num,T))
     beta[:,T-1] = 1
     for i in np.arange(T-2,-1,-1):
         beta[:,i] = np.dot(A,B[:,observation_sequence[i+1]]*beta[:,i+1])    
